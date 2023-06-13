@@ -14,7 +14,7 @@ public class HTPEndpoint {
                 Thread thread = new Thread(readerThread);
                 thread.start();
 
-                // Hier können Sie eine beliebige Methode Ihrer Protokollmaschine aufrufen
+                // Serverseite, deshalb auskommentieren
                 //protocolMachine.getFile("example.txt");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -30,7 +30,7 @@ public class HTPEndpoint {
                 Thread thread = new Thread(readerThread);
                 thread.start();
 
-                // Hier können Sie eine beliebige Methode Ihrer Protokollmaschine aufrufen
+                // Test Methode
                 protocolMachine.getFile("123.txt");
             } catch (IOException e) {
                 e.printStackTrace();

@@ -10,7 +10,7 @@ class ReaderThread implements Runnable {
     @Override
     public void run() {
         try {
-            // Implementieren Sie den Algorithmus zum Lesen von InputStream
+            // Algorithmus zum Lesen von InputStream
             protocolMachine.readFromInputStream();
         } catch (IOException e) {
             e.printStackTrace();
