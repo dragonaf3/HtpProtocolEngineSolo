@@ -30,11 +30,12 @@ public class HTPEndpoint {
                 HTPSerializer serializer = new HTPSerializer();
                 HTPProtocolEngineImpl protocolMachine = new HTPProtocolEngineImpl(socket.getInputStream(), socket.getOutputStream(), serializer);
 
+                // Liest Input Stream
                 ReaderThread readerThread = new ReaderThread(protocolMachine);
                 Thread threadInputstream = new Thread(readerThread);
                 threadInputstream.start();
 
-                // Test Methode
+                // Fragt welche Funktion verwendet werde soll
                 UserInterfaceThread userInterfaceThread = new UserInterfaceThread(protocolMachine);
                 Thread threadUser = new Thread(userInterfaceThread);
                 threadUser.start();

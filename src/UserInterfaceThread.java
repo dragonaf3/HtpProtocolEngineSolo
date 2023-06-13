@@ -13,37 +13,32 @@ public class UserInterfaceThread implements Runnable {
     public void run() {
         try {
             // Algorithmen verwenden der get und put Methode
-            boolean stay = true;
+            System.out.println("1 für get \n 2 für put");
+            System.out.println();
 
-            while (stay) {
-
-                System.out.println("1 für get \n 2 für put \n 3 für exit");
-                System.out.println();
-
-                switch (readFromSystemInInt()) {
-                    case 1 -> {
-                        System.out.println("Dateiname eingeben: \n");
-                        protocolMachine.getFile(readFromSystemInString());
-                    }
-                    case 2 -> {
-                        System.out.println("Welche Datei möchten Sie schicken? \n");
-                        protocolMachine.putFile(readFromSystemInString());
-                    }
-                    case 3 -> stay = false;
-                    default -> System.out.println("Falsche Eingabe!\n");
+            switch (readFromSystemInInt()) {
+                case 1 -> {
+                    System.out.println("Dateiname eingeben: \n");
+                    protocolMachine.getFile(readFromSystemInString());
                 }
-
-                System.out.println();
-
+                case 2 -> {
+                    System.out.println("Welche Datei möchten Sie schicken? \n");
+                    protocolMachine.putFile(readFromSystemInString());
+                }
+                default -> {
+                    System.out.println("Falsche Eingabe! Versuch es nochmal :D\n");
+                }
             }
 
+            System.out.println();
 
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    //Algorithmus zum system.in Einlesen
     public int readFromSystemInInt() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
