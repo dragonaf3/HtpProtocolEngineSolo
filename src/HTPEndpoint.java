@@ -31,11 +31,13 @@ public class HTPEndpoint {
                 HTPProtocolEngineImpl protocolMachine = new HTPProtocolEngineImpl(socket.getInputStream(), socket.getOutputStream(), serializer);
 
                 ReaderThread readerThread = new ReaderThread(protocolMachine);
-                Thread thread = new Thread(readerThread);
-                thread.start();
+                Thread threadInputstream = new Thread(readerThread);
+                threadInputstream.start();
 
                 // Test Methode
-                protocolMachine.getFile("123.txt");
+                UserInterfaceThread userInterfaceThread = new UserInterfaceThread(protocolMachine);
+                Thread threadUser = new Thread(userInterfaceThread);
+                threadUser.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
