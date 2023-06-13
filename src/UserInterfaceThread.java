@@ -20,13 +20,16 @@ public class UserInterfaceThread implements Runnable {
                 case 1 -> {
                     System.out.println("Dateiname eingeben: \n");
                     protocolMachine.getFile(readFromSystemInString());
+                    System.exit(0);
                 }
                 case 2 -> {
                     System.out.println("Welche Datei möchten Sie schicken? \n");
                     protocolMachine.putFile(readFromSystemInString());
+                    System.exit(0);
                 }
                 default -> {
                     System.out.println("Falsche Eingabe! Versuch es nochmal :D\n");
+                    System.exit(0);
                 }
             }
 
