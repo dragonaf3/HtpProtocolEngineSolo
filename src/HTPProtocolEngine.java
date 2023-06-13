@@ -14,7 +14,7 @@ public interface HTPProtocolEngine {
      *
      * @param filenname Name der Datei
      */
-    void putFile(String filenname, int anzahlDerByte, byte[] dateiInhalt) throws IOException;
+    void putFile(String filenname) throws IOException;
 
     void readFromInputStream() throws IOException;
 }

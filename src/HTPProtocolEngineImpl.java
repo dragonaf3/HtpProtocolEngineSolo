@@ -24,11 +24,34 @@ public class HTPProtocolEngineImpl implements HTPProtocolEngine {
     }
 
     @Override
-    public void putFile(String filenname, int anzahlDerByte, byte[] dateiInhalt) throws IOException {
-        PUT_PDUImpl putPdu = new PUT_PDUImpl(filenname, anzahlDerByte, dateiInhalt);
+    public void putFile(String filenname) throws IOException {
+        File file = new File(filenname);
 
-        // send PDU
-        this.serializer.serializePUT_PDU(putPdu, this.os);
+        if (file.isFile()) {
+
+            try {
+
+                FileInputStream fis = new FileInputStream(filenname);
+                byte[] fileContent = fis.readAllBytes();
+                fis.close();
+
+                PUT_PDU putPdu = new PUT_PDUImpl(filenname, fileContent.length, fileContent);
+                // send PDU
+                this.serializer.serializePUT_PDU(putPdu, this.os);
+
+            } catch (IOException e) {
+
+                // Erstelle Client Errormeldung
+                System.out.println(ERROR_PDU.ERRORMELDUNG_2);
+            }
+
+
+        } else {
+
+            // Erstelle Client Errormeldung
+            System.out.println(ERROR_PDU.ERRORMELDUNG_1);
+
+        }
     }
 
     @Override
@@ -78,7 +101,8 @@ public class HTPProtocolEngineImpl implements HTPProtocolEngine {
                 byte[] fileContent = fis.readAllBytes();
                 fis.close();
 
-                this.putFile(getPdu.getDateiname(), fileContent.length, fileContent);
+                PUT_PDU putPdu = new PUT_PDUImpl(getPdu.getDateiname(), fileContent.length, fileContent);
+                this.serializer.serializePUT_PDU(putPdu, this.os);
 
             } catch (IOException e) {
 

@@ -8,8 +8,10 @@ public class HTPEndpoint {
             try {
                 ServerSocket serverSocket = new ServerSocket(port);
                 Socket clientSocket = serverSocket.accept();
+
                 HTPSerializer serializer = new HTPSerializer();
                 HTPProtocolEngineImpl protocolMachine = new HTPProtocolEngineImpl(clientSocket.getInputStream(), clientSocket.getOutputStream(), serializer);
+
                 ReaderThread readerThread = new ReaderThread(protocolMachine);
                 Thread thread = new Thread(readerThread);
                 thread.start();
@@ -24,8 +26,10 @@ public class HTPEndpoint {
             String hostname = args[1];
             try {
                 Socket socket = new Socket(hostname, port);
+
                 HTPSerializer serializer = new HTPSerializer();
                 HTPProtocolEngineImpl protocolMachine = new HTPProtocolEngineImpl(socket.getInputStream(), socket.getOutputStream(), serializer);
+
                 ReaderThread readerThread = new ReaderThread(protocolMachine);
                 Thread thread = new Thread(readerThread);
                 thread.start();
