@@ -7,6 +7,6 @@ HtpProtocolEngine Solo (Teil 4)
 - [x] Protokollmaschine implementieren
 - [x] Protokollmaschine testen
 - [x] Threads und Sockets üben
-- [ ] Nebenläufige Algorithmen beschreiben
+- [x] Nebenläufige Algorithmen beschreiben
 - [x] Integration und laufen lassen
 - [ ] User Interface
