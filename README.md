@@ -10,3 +10,4 @@ HtpProtocolEngine Solo (Teil 4)
 - [x] Nebenläufige Algorithmen beschreiben
 - [x] Integration und laufen lassen
 - [ ] User Interface
+- [ ] Code Optimierung
