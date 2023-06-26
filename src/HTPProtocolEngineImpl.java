@@ -24,37 +24,58 @@ public class HTPProtocolEngineImpl implements HTPProtocolEngine {
     }
 
     @Override
-    public void putFile(String filenname, int anzahlDerByte, byte[] dateiInhalt) throws IOException {
-        PUT_PDUImpl putPdu = new PUT_PDUImpl(filenname, anzahlDerByte, dateiInhalt);
+    public void putFile(String filenname) throws IOException {
+        File file = new File(filenname);
 
-        // send PDU
-        this.serializer.serializePUT_PDU(putPdu, this.os);
+        if (file.isFile()) {
+
+            try {
+
+                FileInputStream fis = new FileInputStream(filenname);
+                byte[] fileContent = fis.readAllBytes();
+                fis.close();
+
+                PUT_PDU putPdu = new PUT_PDUImpl(filenname, fileContent.length, fileContent);
+                // send PDU
+                this.serializer.serializePUT_PDU(putPdu, this.os);
+
+            } catch (IOException e) {
+
+                System.out.println("Fehler beim Lesen der Datei: " + e.getMessage());
+            }
+
+
+        } else {
+
+            System.out.println("Datei existiert nicht oder ist keine normale Datei oder Zugriff verweigert");
+
+        }
     }
 
     @Override
     public void readFromInputStream() throws IOException {
         DataInputStream dais = new DataInputStream(this.is);
 
-        // read header
+        // Lese Protokoll-Header
         HtpPDU_Type pduType = this.serializer.readProtocolHeader(dais);
 
         switch (pduType) {
             case GET -> {
                 GET_PDU getPDU = this.serializer.deSerializeGET_PDU(this.is);
 
-                // successfully deserialized pdu - process it
+                // Erfolgreich deserialisierte pdu - verarbeite es
                 this.handleGET_PDU(getPDU);
             }
             case PUT -> {
                 PUT_PDU putPDU = this.serializer.deSerializePUT_PDU(this.is);
 
-                // successfully deserialized pdu - process it
+                // Erfolgreich deserialisierte pdu - verarbeite es
                 this.handlePUT_PDU(putPDU);
             }
             case ERROR -> {
                 ERROR_PDU errorPDU = this.serializer.deSerializeERROR_PDU(this.is);
 
-                // successfully deserialized pdu - process it
+                // Erfolgreich deserialisierte pdu - verarbeite es
                 this.handleERROR_PDU(errorPDU);
             }
             default -> {
@@ -67,6 +88,11 @@ public class HTPProtocolEngineImpl implements HTPProtocolEngine {
     //                                    protocol actions                                    //
     ////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Verarbeitet eine GET-PDU
+     *
+     * @param getPdu GET-PDU
+     */
     private void handleGET_PDU(GET_PDU getPdu) throws IOException {
         File file = new File(getPdu.getDateiname());
 
@@ -78,7 +104,8 @@ public class HTPProtocolEngineImpl implements HTPProtocolEngine {
                 byte[] fileContent = fis.readAllBytes();
                 fis.close();
 
-                this.putFile(getPdu.getDateiname(), fileContent.length, fileContent);
+                PUT_PDU putPdu = new PUT_PDUImpl(getPdu.getDateiname(), fileContent.length, fileContent);
+                this.serializer.serializePUT_PDU(putPdu, this.os);
 
             } catch (IOException e) {
 
@@ -97,6 +124,11 @@ public class HTPProtocolEngineImpl implements HTPProtocolEngine {
         }
     }
 
+    /**
+     * Verarbeitet eine PUT-PDU
+     *
+     * @param putPdu PUT-PDU
+     */
     private void handlePUT_PDU(PUT_PDU putPdu) throws IOException {
         String dateiname = putPdu.getDateiname();
         byte[] dateiInhalt = putPdu.getDateiInhalt();
@@ -110,22 +142,27 @@ public class HTPProtocolEngineImpl implements HTPProtocolEngine {
 
         } catch (IOException e) {
 
-            System.err.println(ERROR_PDU.ERRORMELDUNG_2);
+            System.out.println("Fehler beim Schreiben der Datei: " + dateiname);
 
         } finally {
             if (fos != null) {
                 try {
                     fos.close();
                 } catch (IOException e) {
-                    System.err.println(ERROR_PDU.ERRORMELDUNG_F);
+                    System.out.println("Fehler beim Schließen der Datei: " + dateiname);
                 }
             }
         }
     }
 
+    /**
+     * Verarbeitet eine ERROR-PDU
+     *
+     * @param errorPdu ERROR-PDU
+     */
     private void handleERROR_PDU(ERROR_PDU errorPdu) {
-        System.out.println("ERROR-PDU empfangen: \n "
-                + "Dateiname: " + errorPdu.getDateiname() + "\n" +
+        System.out.println("ERROR-PDU empfangen: \n" +
+                "Dateiname: " + errorPdu.getDateiname() + "\n" +
                 "Fehlercode: " + errorPdu.getFehlercode() + "\n" +
                 "Fehlermeldung: " + errorPdu.getErrormeldung());
 

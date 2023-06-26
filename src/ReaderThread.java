@@ -7,10 +7,14 @@ class ReaderThread implements Runnable {
         this.protocolMachine = protocolMachine;
     }
 
+    /**
+     * Die Methode run() wird vom Thread ausgeführt, sobald dieser gestartet wird.
+     * Sie liest die Daten vom InputStream und übergibt sie an die Methode
+     * readFromInputStream() der Klasse HTPProtocolEngineImpl.
+     */
     @Override
     public void run() {
         try {
-            // Implementieren Sie den Algorithmus zum Lesen von InputStream
             protocolMachine.readFromInputStream();
         } catch (IOException e) {
             e.printStackTrace();

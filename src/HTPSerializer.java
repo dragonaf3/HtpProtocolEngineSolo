@@ -61,7 +61,7 @@ public class HTPSerializer {
     void serializeGET_PDU(GET_PDU getPdu, OutputStream os) throws IOException {
         DataOutputStream daos = new DataOutputStream(os);
 
-        // send header
+        // sende header
         this.sendProtocolHeader(os, HtpPDU_Type.GET);
 
         // schreibe Dateiname
@@ -71,7 +71,7 @@ public class HTPSerializer {
     GET_PDU deSerializeGET_PDU(InputStream is) throws IOException {
         DataInputStream dais = new DataInputStream(is);
 
-        // header already read
+        // Header bereits gelesen
 
         // lese Dateiname
         String dateiname = dais.readUTF();
@@ -86,7 +86,7 @@ public class HTPSerializer {
     void serializePUT_PDU(PUT_PDU putPdu, OutputStream os) throws IOException {
         DataOutputStream daos = new DataOutputStream(os);
 
-        // send header
+        // sende Header
         this.sendProtocolHeader(os, HtpPDU_Type.PUT);
 
         // schreibe Dateiname
@@ -100,7 +100,7 @@ public class HTPSerializer {
     PUT_PDU deSerializePUT_PDU(InputStream is) throws IOException {
         DataInputStream dais = new DataInputStream(is);
 
-        // header already read
+        // Header bereits gelesen
 
         // lese Dateiname
         String dateiname = dais.readUTF();
@@ -120,7 +120,7 @@ public class HTPSerializer {
     void serializeERROR_PDU(ERROR_PDU errorPdu, OutputStream os) throws IOException {
         DataOutputStream daos = new DataOutputStream(os);
 
-        // send header
+        // sende Header
         this.sendProtocolHeader(os, HtpPDU_Type.ERROR);
 
         // schreibe Dateiname
@@ -134,7 +134,7 @@ public class HTPSerializer {
     ERROR_PDU deSerializeERROR_PDU(InputStream is) throws IOException {
         DataInputStream dais = new DataInputStream(is);
 
-        // header already read
+        // Header bereits gelesen
 
         // lese Dateiname
         String dateiname = dais.readUTF();

@@ -7,17 +7,25 @@ public interface ERROR_PDU {
     public static final String ERRORMELDUNG_F = "Fehler beim Schließen des Streams";
 
 
+
+
     /**
+     * Gibt Dateiname zurueck
+     *
      * @return gibt Dateiname
      */
     String getDateiname();
 
     /**
+     * Gibt Fehlercode zurueck
+     *
      * @return gibt Fehlercode
      */
     byte getFehlercode();
 
     /**
+     * Gibt Errormeldung zurueck
+     *
      * @return gibt Errormeldung
      */
     String getErrormeldung();
