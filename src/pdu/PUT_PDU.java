@@ -1,3 +1,5 @@
+package pdu;
+
 public interface PUT_PDU {
     /**
      * @return gibt Dateiname

@@ -1,3 +1,7 @@
+package htp;
+
+import pdu.*;
+
 import java.io.*;
 
 public class HTPSerializer {
@@ -6,12 +10,12 @@ public class HTPSerializer {
     public static final int PUT_PDU_BYTE = 2;
     public static final int ERROR_PDU_BYTE = 3;
 
-    String readProtocolName(InputStream is) throws IOException {
+    public String readProtocolName(InputStream is) throws IOException {
         DataInputStream daos = new DataInputStream(is);
         return daos.readUTF();
     }
 
-    int readPDUType(InputStream is) throws IOException {
+    public int readPDUType(InputStream is) throws IOException {
         return is.read();
     }
 
@@ -58,7 +62,7 @@ public class HTPSerializer {
     //                                      GETPDU                                      //
     //////////////////////////////////////////////////////////////////////////////////////
 
-    void serializeGET_PDU(GET_PDU getPdu, OutputStream os) throws IOException {
+    public void serializeGET_PDU(GET_PDU getPdu, OutputStream os) throws IOException {
         DataOutputStream daos = new DataOutputStream(os);
 
         // sende header
@@ -68,7 +72,7 @@ public class HTPSerializer {
         daos.writeUTF(getPdu.getDateiname());
     }
 
-    GET_PDU deSerializeGET_PDU(InputStream is) throws IOException {
+    public GET_PDU deSerializeGET_PDU(InputStream is) throws IOException {
         DataInputStream dais = new DataInputStream(is);
 
         // Header bereits gelesen
@@ -80,10 +84,10 @@ public class HTPSerializer {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
-    //                                   PUT_PDU                                        //
+    //                                   pdu.PUT_PDU                                        //
     //////////////////////////////////////////////////////////////////////////////////////
 
-    void serializePUT_PDU(PUT_PDU putPdu, OutputStream os) throws IOException {
+    public void serializePUT_PDU(PUT_PDU putPdu, OutputStream os) throws IOException {
         DataOutputStream daos = new DataOutputStream(os);
 
         // sende Header
@@ -97,7 +101,7 @@ public class HTPSerializer {
         daos.write(putPdu.getDateiInhalt());
     }
 
-    PUT_PDU deSerializePUT_PDU(InputStream is) throws IOException {
+    public PUT_PDU deSerializePUT_PDU(InputStream is) throws IOException {
         DataInputStream dais = new DataInputStream(is);
 
         // Header bereits gelesen
@@ -114,10 +118,10 @@ public class HTPSerializer {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
-    //                                   ERROR_PDU                                      //
+    //                                   pdu.ERROR_PDU                                      //
     //////////////////////////////////////////////////////////////////////////////////////
 
-    void serializeERROR_PDU(ERROR_PDU errorPdu, OutputStream os) throws IOException {
+    public void serializeERROR_PDU(ERROR_PDU errorPdu, OutputStream os) throws IOException {
         DataOutputStream daos = new DataOutputStream(os);
 
         // sende Header
@@ -131,7 +135,7 @@ public class HTPSerializer {
         daos.writeUTF(errorPdu.getErrormeldung());
     }
 
-    ERROR_PDU deSerializeERROR_PDU(InputStream is) throws IOException {
+    public ERROR_PDU deSerializeERROR_PDU(InputStream is) throws IOException {
         DataInputStream dais = new DataInputStream(is);
 
         // Header bereits gelesen

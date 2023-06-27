@@ -9,5 +9,6 @@ HtpProtocolEngine Solo (Teil 4)
 - [x] Threads und Sockets üben
 - [x] Nebenläufige Algorithmen beschreiben
 - [x] Integration und laufen lassen
-- [ ] User Interface
-- [ ] Code Optimierung
+- [x] User Interface
+- [x] Code Optimierung
+- [ ] Socket Close Problem auf User Seite bei Auswahl der Put Funktion, beim Start und bei Exit

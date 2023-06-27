@@ -1,3 +1,5 @@
+package pdu;
+
 public class GET_PDUImpl implements GET_PDU {
     private final String dateiname;
 

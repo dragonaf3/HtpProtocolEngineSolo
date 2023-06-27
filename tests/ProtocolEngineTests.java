@@ -1,3 +1,6 @@
+import htp.HTPProtocolEngine;
+import htp.HTPProtocolEngineImpl;
+import htp.HTPSerializer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

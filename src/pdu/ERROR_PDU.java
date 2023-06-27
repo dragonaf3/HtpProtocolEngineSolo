@@ -1,3 +1,5 @@
+package pdu;
+
 public interface ERROR_PDU {
     public static final byte FEHLERCODE_1 = 0x01;
     public static final byte FEHLERCODE_2 = 0x02;

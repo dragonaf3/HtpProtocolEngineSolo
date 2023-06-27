@@ -1,3 +1,5 @@
+package pdu;
+
 public class ERROR_PDUImpl implements ERROR_PDU {
     private final String dateiname;
     private final byte fehlercode;

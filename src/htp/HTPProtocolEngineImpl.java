@@ -1,3 +1,7 @@
+package htp;
+
+import pdu.*;
+
 import java.io.*;
 
 public class HTPProtocolEngineImpl implements HTPProtocolEngine {

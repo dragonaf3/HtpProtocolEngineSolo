@@ -1,6 +1,10 @@
+package util;
+
+import htp.HTPProtocolEngineImpl;
+
 import java.io.IOException;
 
-class ReaderThread implements Runnable {
+public class ReaderThread implements Runnable {
     private HTPProtocolEngineImpl protocolMachine;
 
     public ReaderThread(HTPProtocolEngineImpl protocolMachine) {
@@ -10,7 +14,7 @@ class ReaderThread implements Runnable {
     /**
      * Die Methode run() wird vom Thread ausgeführt, sobald dieser gestartet wird.
      * Sie liest die Daten vom InputStream und übergibt sie an die Methode
-     * readFromInputStream() der Klasse HTPProtocolEngineImpl.
+     * readFromInputStream() der Klasse htp.HTPProtocolEngineImpl.
      */
     @Override
     public void run() {

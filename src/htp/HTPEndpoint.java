@@ -1,23 +1,12 @@
+package htp;
+
+import util.ReaderThread;
+
 import java.io.*;
 import java.net.*;
 
 public class HTPEndpoint {
-    public static void main(String[] args) {
-        if (args.length != 1 && args.length != 2) {
-            System.out.println("Verwendung: HTPEndpoint <Port> [<Hostname>]");
-            return;
-        }
-
-        int port = Integer.parseInt(args[0]);
-        startServer(port);
-
-        if (args.length == 2) {
-            String hostname = args[1];
-            connectToServer(hostname, port);
-        }
-    }
-
-    private static void startServer(int port) {
+    public void startServer(int port) {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("Server gestartet auf Port: " + port);
@@ -33,7 +22,7 @@ public class HTPEndpoint {
         }
     }
 
-    private static void connectToServer(String hostname, int port) {
+    public void connectToServer(String hostname, int port) {
         try {
             Socket socket = new Socket(hostname, port);
 
@@ -88,13 +77,13 @@ public class HTPEndpoint {
         }
     }
 
-    private static void startReader(HTPProtocolEngineImpl protocolMachine) {
+    private void startReader(HTPProtocolEngineImpl protocolMachine) {
         ReaderThread readerThread = new ReaderThread(protocolMachine);
         Thread thread = new Thread(readerThread);
         thread.start();
     }
 
-    private static HTPProtocolEngineImpl createProtocolMachine(Socket socket) throws IOException {
+    private HTPProtocolEngineImpl createProtocolMachine(Socket socket) throws IOException {
         HTPSerializer serializer = new HTPSerializer();
         HTPProtocolEngineImpl protocolMachine = new HTPProtocolEngineImpl(socket.getInputStream(), socket.getOutputStream(), serializer);
         return protocolMachine;
